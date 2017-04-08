@@ -9,6 +9,10 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Hello World</title>
+        <script>
+          var timerData;
+          var saveData;
+        </script>
     </head>
     <body>
       <div id="deviceready" class="blink">
@@ -24,6 +28,7 @@
   <button type="button" id="stop">stop</button><br>
   <button type="button" id="getJson">getJson</button>
   <button type="button" id="getSavedData">get data</button>
+  <!-- <a href="results.html?time=timerData">Results GO!</a> -->
 
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
@@ -31,9 +36,6 @@
   <script src="js/timer.js"></script>
 
   <script>
-    var timerData;
-    var saveData;
-
     $('#start').click(function() {
       $('#timer').timer('start');
     });
@@ -68,17 +70,13 @@
         });
    });
     //getting back from db
-    $('#getJson').click(function() { 
-    $.getJSON( "http://localhost:8080/greeting", function( json ) {
-      saveData = json;
-      });
+    // $('#getJson').click(function() { 
+    // $.getJSON( "http://localhost:8080/greeting", function( json ) {
+    //   saveData = json;
+    //   });
       //console.log( "JSON Data: " + json[0].userTime );
-     });
-    $('#getSavedData').click(function() {
-      $.each(saveData, function(k, v) {
-        $('#result').append('<p/>' + v.userTime);
-        });
-    }); 
+     // });
+     
     //});
   
   // Just grabbing first entry:
