@@ -2,42 +2,91 @@
 
 <html>
     <head>
-        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
+        <meta http-equiv=“Content-Security-Policy” content=“default-src *; style-src ‘self’ ‘unsafe-inline’; script-src ‘self’ ‘unsafe-inline’ ‘unsafe-eval’“>
+        <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Hello World</title>
+        <script>
+          var timerData;
+          var saveData;
+        </script>
     </head>
     <body>
-        <div class="app">
-          <div id="timer"></div>
-           <button type="button" id="start">start</button>
-           <button type="button" id="pause">pause</button>
-           <button type="button" id="resume">resume</button>
-           <button type="button" id="stop">stop</button>
-        </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"crossorigin="anonymous"></script>
-        <script type="text/javascript" src="js/timer.js"></script>
+      <div id="deviceready" class="blink">
+        <p class="event listening">Connecting to Device</p>
+        <p class="event received">Device is Ready</p>
+            </div>
+        
+  <div id="timer"></div>
+  <div id="result"></div>
+  <button type="button" id="start">start</button>
+  <button type="button" id="pause">pause</button>
+  <button type="button" id="resume">resume</button>
+  <button type="button" id="stop">stop</button><br>
+  <button type="button" id="getJson">getJson</button>
+  <button type="button" id="getSavedData">get data</button>
+  <!-- <a href="results.html?time=timerData">Results GO!</a> -->
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+  <script src="js/timer.js"></script>
 
   <script>
     $('#start').click(function() {
       $('#timer').timer('start');
     });
+    
     $('#pause').click(function() {
       $('#timer').timer('pause');
     });
+    
     $('#resume').click(function() {
       $('#timer').timer('resume');
     });
+    
     $('#stop').click(function() {
       $('#timer').timer('remove');
-    });
+      timerData = $('#timer').data('seconds');
 
 
+     $.ajax({           
+          type: 'POST',
+          url: 'http://localhost:8080/greeting',
+          data: JSON.stringify({
+            userTime: timerData
+          }),
 
+          headers: {
+            'Accept': 'application/json',
+             'Content-Type': 'application/json'
+          },
+        'dataType': 'json'
+        }).done(function(data, status) { 
+              $('#timer').text('');
+        });
+   });
+    //getting back from db
+    // $('#getJson').click(function() { 
+    // $.getJSON( "http://localhost:8080/greeting", function( json ) {
+    //   saveData = json;
+    //   });
+      //console.log( "JSON Data: " + json[0].userTime );
+     // });
+     
+    //});
+  
+  // Just grabbing first entry:
+  // $('#getJson').click(function() { 
+  //   $.getJSON( "http://localhost:8080/greeting", function( json ) {
+  //     $('#result').html('<p/>' + json[1].userTime);
+  //     console.log( "JSON Data: " + json[0].userTime );
+  //    });
+  //  });
+ 
   </script>
     </body>
 </html>
