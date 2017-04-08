@@ -7,10 +7,14 @@
 	<div id="deviceready" class="blink">
        	<p class="event listening">Connecting to Device</p>
         <p class="event received">Device is Ready</p>
-        <div id="getSavedData"></div>
-        <div id="result"></div>
-        <button type="button" id="getJson">getJson</button>
-  		<button type="button" id="getSavedData">get data</button>
+				<div id="timer"></div>
+			  <div id="result"></div>
+			  <button type="button" id="start">start</button>
+			  <button type="button" id="pause">pause</button>
+			  <button type="button" id="resume">resume</button>
+			  <button type="button" id="stop">stop</button><br>
+			  <button type="button" id="getJson">getJson</button>
+			  <button type="button" id="getSavedData">get data</button>
     </div>
 
 
@@ -22,18 +26,19 @@
 	<script>
 	var timerData;
     var saveData;
-	$('#getSavedData').click(function() {
-      $.each(saveData, function(k, v) {
-        $('#result').append('<p/>' + v.userTime);
-        });
-   	 });
 
-	$('#getJson').click(function() { 
-    $.getJSON( "http://localhost:8080/greeting", function( json ) {
-      saveData = json;
-      });
-      console.log( "JSON Data: " + json[0].userTime );
-     });
+
+		$('#getJson').click(function() {
+		$.getJSON( "http://localhost:8080/greeting", function( json ) {
+			saveData = json;
+			});
+		 });
+
+		 $('#getSavedData').click(function() {
+		 $.each(saveData, function(k, v) {
+			 $('#result').append('<p/>' + v.userTime);
+			 });
+		 });
 
 	</script>
 </body>
