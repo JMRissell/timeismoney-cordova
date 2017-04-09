@@ -3,31 +3,52 @@
 <html>
     <head>
         <meta http-equiv=“Content-Security-Policy” content=“default-src *; style-src ‘self’ ‘unsafe-inline’; script-src ‘self’ ‘unsafe-inline’ ‘unsafe-eval’“>
-        <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
-        <script>
+        <link href="css/framework.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/colorbox.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/elements.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/responsive.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="css/hidpi.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="css/skin.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
 
-        </script>
+        <link rel="shortcut icon" href="images/common/favicon.ico" type="image/x-icon" />
+
+        <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css' />
+        <title>Hello World</title>
+
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/effects.jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/jquery.nivo-slider.min.js"></script>
+        <script type="text/javascript" src="js/jquery.colorbox.min.js"></script>
+        <script type="text/javascript" src="js/custom.js"></script>
     </head>
     <body>
-      <div id="deviceready" class="blink">
-        <p class="event listening">Connecting to Device</p>
-        <p class="event received">Device is Ready</p>
-            </div>
+      <div id="deviceready">
+        <div class="websiteWrapper landingWrapper">
+        <ul class="mainMenuWrapper">
 
-  <div id="timer"></div>
-  <div id="result"></div>
-  <button type="button" id="start">start</button>
-  <button type="button" id="pause">pause</button>
-  <button type="button" id="resume">resume</button>
-  <button type="button" id="stop">stop</button><br>
-  <button type="button" id="getJson">getJson</button>
-  <button type="button" id="getSavedData">get data</button>
-  <!-- <a href="results.html?time=timerData">Results GO!</a> -->
+          <li><a href="results.html">Results</a></li>
+        </ul>
+
+        <div class="headerOuterWrapper">
+          <div class="headerWrapper"> <a href="" class="mainMenuButton"><span>Menu</span></a></div>
+        </div>
+
+        <div class="pageWrapper landingPageWrapper">
+          <input type="image" src="images/common/landingLogo.png" class="landingLogoWrapper" id="start"/>
+          <div id="timer" style="text-align:center;font-size:larger;margin-top:50px"></div>
+        </div>
+        <div class="footerWrapper landingFooterWrapper">
+          <a href="index.html" class="footerLogo"><img src="images/common/footerLogo.png" class="" alt=""/></a>
+          <div class="footerSocialIconsWrapper"> <a href="" class="footerSocialIcon footerFacebookIcon"></a> <a href="" class="footerSocialIcon footerTwitterIcon"></a> <a href="" class="footerSocialIcon footerDribbbleIcon"></a> <a href="" class="footerSocialIcon footerFlickrIcon"></a> <a href="" class="footerSocialIcon footerVimeoIcon"></a> <a href="" class="footerSocialIcon footerRssIcon"></a> </div>
+        </div>
+      </div>
+    </div>
 
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
@@ -35,25 +56,24 @@
   <script src="js/timer.js"></script>
 
   <script>
-    var timerData;
-    var saveData;
-    $('#start').click(function() {
-      $('#timer').timer('start');
+    $('#start').click(function(event) {
+     $('#timer').timer('start');
+     var $btn = $(this);
+     var count = ($btn.data("click_count") || 0) + 1;
+     $btn.data("click_count", count);
+     if ( count % 2 == 1 ) {
+     }
+     else if ( count % 2 == 0 ) {
+       $btn.text("even click");
+       jax();
+     }
+     return false;
     });
 
-    $('#pause').click(function() {
-      $('#timer').timer('pause');
-    });
 
-    $('#resume').click(function() {
-      $('#timer').timer('resume');
-    });
-
-    $('#stop').click(function() {
-      $('#timer').timer('remove');
-      timerData = $('#timer').data('seconds');
-
-
+  function jax() {
+    $('#timer').timer('remove');
+    var timerData = $('#timer').data('seconds');
      $.ajax({
           type: 'POST',
           url: 'http://localhost:8080/greeting',
@@ -69,29 +89,8 @@
         }).done(function(data, status) {
               $('#timer').text('');
         });
-   });
+    }
 
-    $('#getJson').click(function() {
-    $.getJSON( "http://localhost:8080/greeting", function( json ) {
-      saveData = json;
-      });
-      //console.log( "JSON Data: " + json[0].userTime );
-     });
-
-     $('#getSavedData').click(function() {
-         $.each(saveData, function(k, v) {
-           $('#result').append('<p/>' + v.userTime);
-           });
-         });
-
-
-  // $('#getJson').click(function() {
-  //   $.getJSON( "http://localhost:8080/greeting", function( json ) {
-  //     $('#result').html('<p/>' + json[1].userTime);
-  //     //console.log( "JSON Data: " + json[0].userTime );
-  //    });
-  //  });
-
-  </script>
+    </script>
     </body>
 </html>
