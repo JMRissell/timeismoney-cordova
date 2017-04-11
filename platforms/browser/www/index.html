@@ -56,7 +56,11 @@
   <script src="js/timer.js"></script>
 
   <script>
+
     $('#start').click(function(event) {
+     $('#timer').timer({
+     format: '%H:%M:%S'  //Display time as 00:00:00
+     });
      $('#timer').timer('start');
      var $btn = $(this);
      var count = ($btn.data("click_count") || 0) + 1;
@@ -69,7 +73,6 @@
      }
      return false;
     });
-
 
   function jax() {
     $('#timer').timer('remove');

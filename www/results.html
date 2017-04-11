@@ -97,6 +97,7 @@
   	<script src="js/timer.js"></script>
 
 	<script>
+	var sec, min, hr;
 	var timerData;
 	$('#getJson').click(function() {
 			var $btn = $(this);
@@ -105,16 +106,27 @@
       if ( count == 1 ) {
 				$.getJSON( "http://localhost:8080/greeting", function( json ) {
 					$.each(json, function(k, v) {
-		 			 $('#result').append('<div class="accordionContent"><p>' + v.userTime + '</p></div>');
+					//formating retrieved data				
+					hr = Math.floor(v.userTime / 3600);
+					if (hr < 10) {
+						hr = "0" + hr;
+					}
+					v.userTime %= 3600;
+					min = Math.floor(v.userTime / 60);
+					if (min < 10) {
+						min = "0" + min;
+					}
+					sec = v.userTime % 60;
+					if (sec < 10) {
+						sec = "0" + sec;
+					}
+		 			 $('#result').append('<div class="accordionContent"><p>' + hr + ":" + min + ":" + sec + '</p></div>'); 
 		 			});
 				});
-      }
-      else  {
+      } else {
         return false;
       }
 		 });
-
-
 	</script>
 </body>
 </html>
