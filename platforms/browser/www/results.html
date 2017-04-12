@@ -104,9 +104,8 @@
       var count = ($btn.data("click_count") || 0) + 1;
       $btn.data("click_count", count);
       if ( count == 1 ) {
-				$.getJSON( "http://localhost:8080/greeting", function( json ) {
+      	$.getJSON( 'https://timeismoney-api.herokuapp.com/times', function( json ) {     		
 					$.each(json, function(k, v) {
-					//formating retrieved data				
 					hr = Math.floor(v.userTime / 3600);
 					if (hr < 10) {
 						hr = "0" + hr;

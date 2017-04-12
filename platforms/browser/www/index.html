@@ -40,7 +40,7 @@
         </div>
 
         <div class="pageWrapper landingPageWrapper">
-          <input type="image" src="images/common/landingLogo.png" class="landingLogoWrapper" id="start"/>
+          <input type="image" src="images/common/logo-time.png" class="landingLogoWrapper" id="start"/>
           <div id="timer" style="text-align:center;font-size:larger;margin-top:50px"></div>
         </div>
         <div class="footerWrapper landingFooterWrapper">
@@ -79,7 +79,7 @@
     var timerData = $('#timer').data('seconds');
      $.ajax({
           type: 'POST',
-          url: 'http://localhost:8080/greeting',
+          url: 'https://timeismoney-api.herokuapp.com/time',          
           data: JSON.stringify({
             userTime: timerData
           }),

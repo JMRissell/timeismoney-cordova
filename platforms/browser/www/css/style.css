@@ -15,7 +15,7 @@ License: Commercial
 /*//////////////////// Customized Framework CSS Rules Start                                                               */
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 body {
-	background-color: #26ba9a;
+	background-color: #94D0D8;
 	font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 p > a {
@@ -1372,7 +1372,7 @@ input.fieldHasError, textarea.fieldHasError {
 .footerWrapper {
 	padding-left: 24px;
 	padding-right: 24px;
-	background-color: #21a387;
+	background-color: #94D0D8;
 	height: 54px;
 	overflow: visible;
 	border-top: 3px solid #1d9077;
