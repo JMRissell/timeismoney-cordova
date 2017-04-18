@@ -32,7 +32,10 @@
         <div class="websiteWrapper landingWrapper">
         <ul class="mainMenuWrapper">
 
-          <li><a href="results.html">Results</a></li>
+          <li><a href="results.html">Miscellaneous</a></li>
+          <li><a href="results.html">Clients</a></li>
+          <li><a href="results.html">Errands</a></li>
+          <li><a href="results.html">Exercise</a></li>
         </ul>
 
         <div class="headerOuterWrapper">
@@ -41,10 +44,10 @@
 
         <div class="pageWrapper landingPageWrapper">
           <input type="image" src="images/common/logo-time.png" class="landingLogoWrapper" id="start"/>
-          <div id="timer" style="text-align:center;font-size:larger;margin-top:50px"></div>
+          <div id="timer" style="text-align:center;font-size:72px;margin-top:70px;height:100px;padding-top:20px"></div>
         </div>
         <div class="footerWrapper landingFooterWrapper">
-          <a href="index.html" class="footerLogo"><img src="images/common/footerLogo.png" class="" alt=""/></a>
+          <a href="index.html" class="footerLogo"><img src="images/common/footerlogo.png" /></a>
           <div class="footerSocialIconsWrapper"> <a href="" class="footerSocialIcon footerFacebookIcon"></a> <a href="" class="footerSocialIcon footerTwitterIcon"></a> <a href="" class="footerSocialIcon footerDribbbleIcon"></a> <a href="" class="footerSocialIcon footerFlickrIcon"></a> <a href="" class="footerSocialIcon footerVimeoIcon"></a> <a href="" class="footerSocialIcon footerRssIcon"></a> </div>
         </div>
       </div>
@@ -57,18 +60,17 @@
 
   <script>
 
-    $('#start').click(function(event) {
+    $('#start').click(function() {
      $('#timer').timer({
-     format: '%H:%M:%S'  //Display time as 00:00:00
-     });
-     $('#timer').timer('start');
+     format: '%H:%M:%S'  
+     });  
      var $btn = $(this);
      var count = ($btn.data("click_count") || 0) + 1;
      $btn.data("click_count", count);
      if ( count % 2 == 1 ) {
+      $('#timer').timer('start');
      }
      else if ( count % 2 == 0 ) {
-       $btn.text("even click");
        jax();
      }
      return false;
@@ -79,7 +81,7 @@
     var timerData = $('#timer').data('seconds');
      $.ajax({
           type: 'POST',
-          url: 'https://timeismoney-api.herokuapp.com/time',          
+          url: 'https://timeismoney-api.herokuapp.com/time',   
           data: JSON.stringify({
             userTime: timerData
           }),
@@ -91,6 +93,9 @@
         'dataType': 'json'
         }).done(function(data, status) {
               $('#timer').text('');
+              $('<img id="success-img" style="margin-left:48%" src="images/icons/smallicons/32/2/iconCheckmarkBg32.png"/>').hide().appendTo("#timer").fadeIn(500);
+             
+              $('#success-img').fadeOut(2000);
         });
     }
 

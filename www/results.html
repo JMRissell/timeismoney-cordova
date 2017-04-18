@@ -41,6 +41,10 @@
        <div class="websiteWrapper">
 				<ul class="mainMenuWrapper">
 				  <li><a href="index.html">Home</a></li>
+				  <li><a href="results.html">Miscellaneous</a></li>
+		          <li><a href="results.html">Clients</a></li>
+		          <li><a href="results.html">Errands</a></li>
+		          <li><a href="results.html">Exercise</a></li>
 			  <!-- <div id="result"></div> -->
 			</ul>
 			  <!-- <button type="button" id="getJson">getJson</button>
@@ -91,7 +95,7 @@
     </div>
 
 
-	  <script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="cordova.js"></script>
   	<script type="text/javascript" src="js/index.js"></script>
   	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
   	<script src="js/timer.js"></script>
@@ -100,11 +104,13 @@
 	var sec, min, hr;
 	var timerData;
 	$('#getJson').click(function() {
-			var $btn = $(this);
+	  var newDate = new Date();
+	  var $btn = $(this);
       var count = ($btn.data("click_count") || 0) + 1;
       $btn.data("click_count", count);
       if ( count == 1 ) {
-      	$.getJSON( 'https://timeismoney-api.herokuapp.com/times', function( json ) {     		
+      	$.getJSON( 'https://timeismoney-api.herokuapp.com/times', function( json ) {  
+      	//$.getJSON( 'http://localhost:8080/times', function( json ) {    		
 					$.each(json, function(k, v) {
 					hr = Math.floor(v.userTime / 3600);
 					if (hr < 10) {
@@ -119,7 +125,7 @@
 					if (sec < 10) {
 						sec = "0" + sec;
 					}
-		 			 $('#result').append('<div class="accordionContent"><p>' + hr + ":" + min + ":" + sec + '</p></div>'); 
+		 			 $('#result').append('<div class="accordionContent"><p>' + hr + ":" + min + ":" + sec + "&nbsp &nbsp &nbsp &nbsp" + newDate.toDateString() + "&nbsp &nbsp &nbsp &nbsp" + newDate.toLocaleTimeString() + '</p></div>'); 
 		 			});
 				});
       } else {
